@@ -79,7 +79,8 @@ class MyLogo extends HTMLElement {
         const html = `
         <div class="boiteLogo">
             <div id="logo" class="focus-in-expand"> Mon logo
-            
+                <div class="background">
+                </div>
             </div>
         </div>
         
@@ -92,11 +93,9 @@ class MyLogo extends HTMLElement {
                 <label> Couleur </label> <input type="color" value=${this.couleur} id="selecteurCouleur">
             </div>
 
-            <!--
             <div class="line"> 
                 <label> Couleur Ombre </label> <input type="color" value=${this.shadowColor} id="selecteurCouleurOmbre">
-            </div>
-            -->
+            </div>            
 
             <div class="line"> 
                 <label> Taille : </label> 
@@ -242,6 +241,7 @@ class MyLogo extends HTMLElement {
         this.shadowRoot.innerHTML = `<style>${style+animationExemple+animationFlip}</style>` + html;
 
         this.logo = this.shadowRoot.querySelector("#logo");
+        this.background = this.shadowRoot.querySelector(".background")
         this.declareEcouteurs();
     }
 
@@ -254,9 +254,9 @@ class MyLogo extends HTMLElement {
             this.changeCouleur(event.target.value);
         });
 
-        // this.shadowRoot.querySelector("#selecteurCouleurOmbre").addEventListener("input", (event) => {
-        //     this.changeCouleurOmbre(event.target.value);
-        // });
+        this.shadowRoot.querySelector("#selecteurCouleurOmbre").addEventListener("input", (event) => {
+            this.changeCouleurOmbre(event.target.value);
+        });
 
         this.shadowRoot.querySelector("#selecteurBordure").addEventListener("input", (event) => {
             this.changeBordureCouleur(event.target.value);
@@ -270,13 +270,13 @@ class MyLogo extends HTMLElement {
             this.changeSize(event.target.value);
         });
 
-        this.shadowRoot.querySelector("#selecteurBackground").addEventListener("input", (event) => {
-            this.changeBackground(event.target.value);
-        });
-
-        // this.shadowRoot.querySelector("#selecteurOpaciteBackground").addEventListener("input", (event) => {
-        //     this.changeOpaciteBackground(event.target.value);
+        // this.shadowRoot.querySelector("#selecteurBackground").addEventListener("input", (event) => {
+        //     this.changeBackground(event.target.value);
         // });
+
+        this.shadowRoot.querySelector("#selecteurOpaciteBackground").addEventListener("input", (event) => {
+            this.changeOpaciteBackground(event.target.value);
+        });
 
         this.shadowRoot.querySelector("#selecteurAnimation").addEventListener("input", (event) => {
             this.changeAnimation(event.target.value);
@@ -293,7 +293,7 @@ class MyLogo extends HTMLElement {
     }
 
     changeCouleurOmbre(val) {
-        this.logo.style.shadowColor = val;
+        this.logo.style.textShadow = "0 0 10px " + val;
     }
 
     changeBackground(val) {
@@ -317,31 +317,31 @@ class MyLogo extends HTMLElement {
     // changeOpaciteBackground(val) {
     //     switch (val) {
     //         case '1':
-    //             this.logo.style.backgroundImage.opacity = "0.1"
+    //             this.background.opacity = "0.1"
     //         case '2':
-    //             this.logo.style.backgroundImage.opacity = "0.2"
+    //             this.background.opacity = "0.2"
     //         case '3':
-    //             this.logo.style.backgroundImage.opacity = "0.3"
+    //             this.background.opacity = "0.3"
     //         case '4':
-    //             this.logo.style.backgroundImage.opacity = "0.4"
+    //             this.background.opacity = "0.4"
     //         case '5':
-    //             this.logo.style.backgroundImage.opacity = "0.5"
+    //             this.background.opacity = "0.5"
     //         case '6':
-    //             this.logo.style.backgroundImage.opacity = "0.6"
+    //             this.background.opacity = "0.6"
     //         case '7':
-    //             this.logo.style.backgroundImage.opacity = "0.7"
+    //             this.background.opacity = "0.7"
     //         case '8':
-    //            this.logo.style.backgroundImage.opacity = "0.8"
+    //             this.background.opacity = "0.8"
     //         case '9':
-    //             this.logo.style.backgroundImage.opacity = "0.9"
+    //             this.background.opacity = "0.9"
     //         case '10':
-    //             this.logo.style.backgroundImage.opacity = "1.0"
+    //             this.background.opacity = "1.0"
     //     }
     // }
 
-    // changeBordureCouleur(val) {
-    //     this.logo.style.borderColor = val;
-    // }
+    changeBordureCouleur(val) {
+        this.logo.style.borderColor = val;
+    }
 
     changeBordureTaille(val) {
         this.logo.style.borderWidth = val + "px";
